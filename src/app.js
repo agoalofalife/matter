@@ -1,7 +1,7 @@
 var Node = require('basis.ui').Node;
 
 module.exports = require('basis.app').create({
-  title: 'My app',
+  title: 'Административная панель',
 
   init: function(){
     return new Node({
