@@ -6,6 +6,7 @@ const Dataset = require('basis.data').Dataset;
 var dataset = new Dataset({
     items: [
         { id: 1, name: 'Пользователи', url:'/users' },
+        { id: 2, name: 'Роли', url:'/roles' },
     ].map(function (value) {
         return new DataObject({
             data: {
