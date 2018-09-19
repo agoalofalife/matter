@@ -1,5 +1,5 @@
 const Node = require('basis.ui').Node;
-const router = basis.require('basis.router');
+// const router = basis.require('basis.router');
 
 module.exports = Node.subclass({
     template: resource('./templates/menu.tmpl'),
