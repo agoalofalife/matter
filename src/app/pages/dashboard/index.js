@@ -25,8 +25,7 @@ let page = router
     .route('dashboard/:area')
     .param('area')
     .as(function(page) {
-        console.log(page, location.hash)
-        return pages[page] || pages['dashboard/start'];
+        return pages[page] || pages['start'];
     });
 
 
