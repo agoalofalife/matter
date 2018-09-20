@@ -3,7 +3,7 @@ var router = basis.require('basis.router');
 var pages = require('./app/pages/index');
 
 var page = router
-    .route(':page')
+    .route(':page(/:prefix)')
     .param('page')
     .as(function(page) {
         return pages[page] || pages[''];

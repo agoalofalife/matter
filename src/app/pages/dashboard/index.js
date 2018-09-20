@@ -23,8 +23,7 @@ var dataset = new Dataset({
 
 let page = router
     .route('dashboard/:area')
-    // .route('dashboard/:area')
-    .param(1)
+    .param('area')
     .as(function(page) {
         console.log(page, location.hash)
         return pages[page] || pages['dashboard/start'];
