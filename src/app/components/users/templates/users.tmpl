@@ -2,10 +2,14 @@
    .container-dashboard {
     min-width: 110%;
     }
+    .preloader{
+    text-align:center;
+    }
 </b:style>
 
 <div class="container-dashboard">
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" b:hide="{loading}">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <!--<h1 class="h2">Dashboard</h1>-->
             <div class="btn-toolbar mb-2 mb-md-0">
@@ -32,21 +36,14 @@
                 <tr>
                     <th>#</th>
                     <th>Имя</th>
-                    <th>Header</th>
-                    <th>Header</th>
-                    <th>Header</th>
+                    <th>Email</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>ipsum</td>
-                    <td>dolor</td>
-                    <td>sit</td>
-                </tr>
+                <!--{childNodesHere}-->
                 </tbody>
             </table>
         </div>
     </main>
+    <div b:show="{loading}" class="preloader">{preloader}</div>
 </div>
