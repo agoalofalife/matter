@@ -13,10 +13,10 @@ module.exports = new Node({
     },
     handler: {
         ownerChanged() {
-            console.log(this.owner)
-            // if (this.owner) {
-            //     this.dataSource.deprecate();
-            // }
+            // data deprecate if owner exist after change
+            if (this.owner) {
+                this.dataSource.deprecate();
+            }
         }
     },
     binding: {
