@@ -1,5 +1,7 @@
 const Node = require('basis.ui').Node;
-// const router = basis.require('basis.router');
+const router = basis.require('basis.router');
+let Value = require('basis.data').Value;
+let currentPage = Value.from(router.route('dashboard/:page').param('page'));
 
 module.exports = Node.subclass({
     template: resource('./templates/menu.tmpl'),
@@ -7,9 +9,12 @@ module.exports = Node.subclass({
         name: 'data:',
         url:'data:'
     },
+    selected: currentPage.compute(function(node, page){
+        return node.data.url == page
+    }),
     action:{
-        actionLink:function (e) {
-            // router.navigate(e.sender.dataset.url);
+        click:function () {
+            router.navigate('dashboard/' + this.data.url);
         }
     }
 });

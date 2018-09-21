@@ -31,21 +31,12 @@ let page = router
 
 module.exports = new Node({
     template: resource('./templates/dashboard.tmpl'),
-    selection: true,
     childClass: Menu,
     dataSource: dataset,
-    listen: {
-        selection: {
-            itemsChanged: function(selection){
-                router.navigate('dashboard/' + selection.pick().data.url)
-            }
-        }
-    },
     binding: {
         area: 'satellite:',
     },
     satellite: {
         area: page,
-        // area: require('./../../components/users/index'),
     },
 });

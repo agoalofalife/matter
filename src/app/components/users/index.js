@@ -11,8 +11,15 @@ module.exports = new Node({
     satellite: {
         preloader: Preloader,
     },
+    handler: {
+        ownerChanged() {
+            console.log(this.owner)
+            // if (this.owner) {
+            //     this.dataSource.deprecate();
+            // }
+        }
+    },
     binding: {
-        // loading: true,
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
         preloader: 'satellite:',
     },
@@ -24,5 +31,5 @@ module.exports = new Node({
             email: 'data:',
         },
     },
-    dataSource: users.all
+    dataSource: users.all,
 });
