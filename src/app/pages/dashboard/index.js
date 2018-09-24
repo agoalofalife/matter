@@ -13,7 +13,7 @@ var dataset = new Dataset({
             title:"Основное",
             type:null,
             typeName:'',
-        list:[
+            list:[
             {name: 'Пользователи', url:'users'},
             {name: 'Роли', url:'roles'},
         ],
@@ -22,8 +22,10 @@ var dataset = new Dataset({
         return new DataObject({
             data: {
                 id: value.id,
-                name: value.name,
-                url:value.url
+                title: value.title,
+                type:value.type,
+                typeName:value.typeName,
+                list:value.list,
             }
         });
     })
@@ -39,15 +41,20 @@ let page = router
 
 
 module.exports = new Node({
+    className:'dashboard',
     template: resource('./templates/dashboard.tmpl'),
     childClass: Menu,
     dataSource: dataset,
+    // childFactory: function(config){
+    //     console.log(config);
+    //     return new Menu(config);
+    // },
     binding: {
         area: 'satellite:',
         navbar:'satellite:',
     },
     satellite: {
-        area: page,
+        // area: page,
         navbar:Navbar,
     },
 });

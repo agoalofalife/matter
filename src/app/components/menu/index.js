@@ -1,21 +1,24 @@
 const Node = require('basis.ui').Node;
 const router = basis.require('basis.router');
-let Value = require('basis.data').Value;
-let currentPage = Value.from(router.route('dashboard/:page').param('page'));
+// let Value = require('basis.data').Value;
+// let currentPage = Value.from(router.route('dashboard/:page').param('page'));
 
-module.exports = Node.subclass({
+module.exports = new Node({
+    className:'menu',
     template: resource('./templates/menu.tmpl'),
     // binding: {
-    //     name: 'data:',
-    //     url:'data:'
+    //     id: 'data:',
+    //     title: 'data:',
+    //     type: 'data:',
+    //     typeName:'data:',
     // },
-    selected: currentPage.compute(function(node, page){
-        return node.data.url == page
-    }),
+    // selected: currentPage.compute(function(node, page){
+    //     return node.data.url == page
+    // }),
     childClass: {
         template: resource('./templates/menu-item.tmpl'),
         binding: {
-            // id: 'data:',
+            id: 'data:',
             title: 'data:',
             type: 'data:',
             typeName:'data:',
@@ -32,5 +35,5 @@ module.exports = Node.subclass({
                 }
             },
         },
-    },
+    }
 });
