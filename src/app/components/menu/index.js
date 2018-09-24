@@ -23,17 +23,17 @@ module.exports = new Node({
             type: 'data:',
             typeName:'data:',
         },
-        childClass: {
-            template: resource('./templates/menu-li.tmpl'),
-            binding: {
-                name:'data:',
-                url:'data:'
-            },
-            action:{
-                click:function () {
-                    router.navigate('dashboard/' + this.data.url);
-                }
-            },
-        },
+        // childClass: {
+        //     template: resource('./templates/menu-li.tmpl'),
+        //     binding: {
+        //         name:'data:',
+        //         url:'data:'
+        //     },
+        //     action:{
+        //         click:function () {
+        //             router.navigate('dashboard/' + this.data.url);
+        //         }
+        //     },
+        // },
     }
 });
