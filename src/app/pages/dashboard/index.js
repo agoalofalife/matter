@@ -32,7 +32,7 @@ let page = router
 
 module.exports = new Node({
     template: resource('./templates/dashboard.tmpl'),
-    childClass: Menu,
+    // childClass: Menu,
     dataSource: dataset,
     binding: {
         area: 'satellite:',

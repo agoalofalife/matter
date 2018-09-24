@@ -14,7 +14,7 @@ module.exports = new Node({
     childClass: {
         template: resource('./templates/navbar-item.tmpl'),
         binding: {
-            id: 'title:',
+            title: 'data:',
         },
     },
     dataSource: new Dataset({
