@@ -1,15 +1,30 @@
 <b:style>
-   .container-dashboard {
-    min-width: 110%;
-    }
+   <!--.container-dashboard {-->
+    <!--min-width: 110%;-->
+    <!--}-->
     .preloader{
     text-align:center;
+    }
+    .table-fixed thead {
+    width: 97%;
+    }
+    .table-fixed tbody {
+    height: 230px;
+    overflow-y: auto;
+    width: 100%;
+    }
+    .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+    display: block;
+    }
+    .table-fixed tbody td, .table-fixed thead > tr> th {
+    float: left;
+    border-bottom-width: 0;
     }
 </b:style>
 
 <div class="container-dashboard">
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" b:hide="{loading}">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" b:hide="{isNotShow}">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <!--<h1 class="h2">Dashboard</h1>-->
             <div class="btn-toolbar mb-2 mb-md-0">
@@ -45,5 +60,6 @@
             </table>
         </div>
     </main>
+    <p b:show="{isError}" class="col-md-9">Произошла ошибка</p>
     <div b:show="{loading}" class="preloader">{preloader}</div>
 </div>

@@ -4,6 +4,7 @@ const DataObject = require('basis.data').Object;
 const Dataset = require('basis.data').Dataset;
 const router = basis.require('basis.router');
 const pages = require('../dashboard/dashboardRoutes');
+const Navbar = require('../../components/navbar/index');
 
 var dataset = new Dataset({
     items: [
@@ -35,8 +36,10 @@ module.exports = new Node({
     dataSource: dataset,
     binding: {
         area: 'satellite:',
+        navbar:'satellite:',
     },
     satellite: {
         area: page,
+        navbar:Navbar,
     },
 });

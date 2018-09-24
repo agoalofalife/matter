@@ -3,6 +3,7 @@ const users = require('../../type.js').user;
 const Preloader = require('../../components/preloader/preloader');
 let STATE = require('basis.data').STATE;
 let Value = require('basis.data').Value;
+let Expression = require('basis.data.value').Expression;
 
 module.exports = new Node({
     className:'dashboard.users',
@@ -21,7 +22,12 @@ module.exports = new Node({
     },
     binding: {
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
+        isError:Value.query('childNodesState').as(state => state == STATE.ERROR),
         preloader: 'satellite:',
+        isNotShow:node => new Expression(
+            Value.query(node, 'childNodesState'),
+            Value.query(node, 'dataSource.itemCount'),
+            (state, itemCount) => !itemCount && (state == STATE.READY || state == STATE.ERROR)),
     },
     childClass: {
         template: resource('./templates/users-table-item.tmpl'),
