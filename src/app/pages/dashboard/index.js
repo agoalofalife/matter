@@ -8,8 +8,16 @@ const Navbar = require('../../components/navbar/index');
 
 var dataset = new Dataset({
     items: [
-        { id: 1, name: 'Пользователи', url:'users' },
-        { id: 2, name: 'Роли', url:'roles' },
+        {
+            id: 1,
+            title:"Основное",
+            type:null,
+            typeName:'',
+        list:[
+            {name: 'Пользователи', url:'users'},
+            {name: 'Роли', url:'roles'},
+        ],
+        },
     ].map(function (value) {
         return new DataObject({
             data: {
@@ -32,7 +40,7 @@ let page = router
 
 module.exports = new Node({
     template: resource('./templates/dashboard.tmpl'),
-    // childClass: Menu,
+    childClass: Menu,
     dataSource: dataset,
     binding: {
         area: 'satellite:',

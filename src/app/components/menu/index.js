@@ -5,16 +5,32 @@ let currentPage = Value.from(router.route('dashboard/:page').param('page'));
 
 module.exports = Node.subclass({
     template: resource('./templates/menu.tmpl'),
-    binding: {
-        name: 'data:',
-        url:'data:'
-    },
+    // binding: {
+    //     name: 'data:',
+    //     url:'data:'
+    // },
     selected: currentPage.compute(function(node, page){
         return node.data.url == page
     }),
-    action:{
-        click:function () {
-            router.navigate('dashboard/' + this.data.url);
-        }
-    }
+    childClass: {
+        template: resource('./templates/menu-item.tmpl'),
+        binding: {
+            // id: 'data:',
+            title: 'data:',
+            type: 'data:',
+            typeName:'data:',
+        },
+        childClass: {
+            template: resource('./templates/menu-li.tmpl'),
+            binding: {
+                name:'data:',
+                url:'data:'
+            },
+            action:{
+                click:function () {
+                    router.navigate('dashboard/' + this.data.url);
+                }
+            },
+        },
+    },
 });
