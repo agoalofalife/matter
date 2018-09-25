@@ -1,35 +1,9 @@
 const Node = require('basis.ui').Node;
 const Menu = require('./../../components/menu/index');
-const DataObject = require('basis.data').Object;
-const Dataset = require('basis.data').Dataset;
+
 const router = basis.require('basis.router');
 const pages = require('../dashboard/dashboardRoutes');
 const Navbar = require('../../components/navbar/index');
-
-var dataset = new Dataset({
-    items: [
-        {
-            id: 1,
-            title:"Основное",
-            type:null,
-            typeName:'',
-            list:[
-            {name: 'Пользователи', url:'users'},
-            {name: 'Роли', url:'roles'},
-        ],
-        },
-    ].map(function (value) {
-        return new DataObject({
-            data: {
-                id: value.id,
-                title: value.title,
-                type:value.type,
-                typeName:value.typeName,
-                list:value.list,
-            }
-        });
-    })
-});
 
 
 let page = router
@@ -43,18 +17,14 @@ let page = router
 module.exports = new Node({
     className:'dashboard',
     template: resource('./templates/dashboard.tmpl'),
-    childClass: Menu,
-    dataSource: dataset,
-    // childFactory: function(config){
-    //     console.log(config);
-    //     return new Menu(config);
-    // },
     binding: {
         area: 'satellite:',
         navbar:'satellite:',
+        menu:'satellite:',
     },
     satellite: {
         // area: page,
         navbar:Navbar,
+        menu:Menu
     },
 });
