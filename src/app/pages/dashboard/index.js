@@ -6,12 +6,12 @@ const pages = require('../dashboard/dashboardRoutes');
 const Navbar = require('../../components/navbar/index');
 
 
-let page = router
-    .route('dashboard/:area')
-    .param('area')
-    .as(function(page) {
-        return pages[page] || pages['start'];
-    });
+// let page = router
+//     .route('dashboard/:area')
+//     .param('area')
+//     .as(function(page) {
+//         return pages[page] || pages['start'];
+//     });
 
 
 module.exports = new Node({
