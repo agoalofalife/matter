@@ -30,7 +30,7 @@ var dataset = new Dataset({
         });
     })
 });
-
+console.log(dataset.pick())
 module.exports = new Node({
     className:'menu',
     // dataSource: dataset,
@@ -108,6 +108,6 @@ module.exports = new Node({
                 //     }
                 // },
             },
-        childNodes:[{name: 'Пользователи', url:'users'},]
+        childNodes:[{name: 'Пользователи', url:'users'}, {name: 'Роли', url:'roles'},]
     }]
 });
