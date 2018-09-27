@@ -48,8 +48,8 @@ module.exports = new Node({
                 selected: currentPage.compute(function(node, page){
                     return node.data.url == page
                 }),
-                template: '<b:define name="isActive" from="selected" type="bool"/> <li><a class="{isActive}" event-click="click">{name}</a></li>',
-                // template: resource('./templates/menu-li.tmpl'),
+                // template: '<b:define name="isActive" from="selected" type="bool"/> <li><a class="{isActive}" event-click="click">{name}</a></li>',
+                template: resource('./templates/menu-li.tmpl'),
                 binding: {
                     name:'data:',
                     url:'data:'
