@@ -5,7 +5,7 @@ const Dataset = require('basis.data').Dataset;
 let MenuItem = require('../menu-head/index');
 let Value = require('basis.data').Value;
 const menu = require('../../type').menu;
-// let currentPage = Value.from(router.route('dashboard/:page').param('page'));
+let currentPage = Value.from(router.route('dashboard/:page').param('page'));
 
 var dataset = new Dataset({
     items: [
@@ -32,15 +32,12 @@ var dataset = new Dataset({
     })
 });
 
-console.log(menu.all)
+
 module.exports = new Node({
     className:'menu',
     active:true,
     dataSource: menu.all,
     template: resource('./templates/menu.tmpl'),
-    // selected: currentPage.compute(function(node, page){
-    //     return node.data.url == page
-    // }),
     childClass: {
         template: resource('./templates/menu-item.tmpl'),
         dataSource: Value.query('data.list'),
@@ -48,18 +45,20 @@ module.exports = new Node({
             title: 'data:',
         },
         childClass: {
-                 // dataSource: Value.query('data.list'),
-                template: '<li><a class="is-active">{name}</a></li>',
+                selected: currentPage.compute(function(node, page){
+                    return node.data.url == page
+                }),
+                template: '<b:define name="isActive" from="selected" type="bool"/> <li><a class="{isActive}" event-click="click">{name}</a></li>',
                 // template: resource('./templates/menu-li.tmpl'),
                 binding: {
                     name:'data:',
                     url:'data:'
                 },
-                // action:{
-                //     click:function () {
-                //         router.navigate('dashboard/' + this.data.url);
-                //     }
-                // },
+                action:{
+                    click:function () {
+                        router.navigate('dashboard/' + this.data.url);
+                    }
+                },
             },
     },
 });
