@@ -4,6 +4,7 @@ const DataObject = require('basis.data').Object;
 const Dataset = require('basis.data').Dataset;
 let MenuItem = require('../menu-head/index');
 let Value = require('basis.data').Value;
+const menu = require('../../type').menu;
 // let currentPage = Value.from(router.route('dashboard/:page').param('page'));
 
 var dataset = new Dataset({
@@ -30,10 +31,12 @@ var dataset = new Dataset({
         });
     })
 });
-console.log(dataset.pick())
+
+console.log(menu.all)
 module.exports = new Node({
     className:'menu',
-    // dataSource: dataset,
+    active:true,
+    dataSource: menu.all,
     template: resource('./templates/menu.tmpl'),
     // binding: {
     //     id: 'data:',
@@ -46,15 +49,29 @@ module.exports = new Node({
     // }),
     childClass: {
         template: resource('./templates/menu-item.tmpl'),
+        dataSource: Value.query('data.list'),
         binding: {
             // menuItem: 'satellite:',
             // id: 'data:',
-            title: 'title',
+            title: 'data:',
             // name: 'data:',
             // type: 'data:',
             // typeName:'data:',
         },
-
+        childClass: {
+                 // dataSource: Value.query('data.list'),
+                template: '<li><a class="is-active">{name}</a></li>',
+                // template: resource('./templates/menu-li.tmpl'),
+                binding: {
+                    name:'data:',
+                    url:'data:'
+                },
+                // action:{
+                //     click:function () {
+                //         router.navigate('dashboard/' + this.data.url);
+                //     }
+                // },
+            },
      // childNodes:[
      //     {
      //         // binding: {
@@ -92,22 +109,22 @@ module.exports = new Node({
     //     }
         // childClass:MenuItem,
     },
-    childNodes:[{
-        title:'Основное',
-        childClass: {
-                 // dataSource: Value.query('data.list'),
-                template: '<li><a class="is-active">{name}</a></li>',
-                // template: resource('./templates/menu-li.tmpl'),
-                binding: {
-                    name:'name',
-                    url:'url'
-                },
-                // action:{
-                //     click:function () {
-                //         router.navigate('dashboard/' + this.data.url);
-                //     }
-                // },
-            },
-        childNodes:[{name: 'Пользователи', url:'users'}, {name: 'Роли', url:'roles'},]
-    }]
+    // childNodes:[{
+    //     title:'Основное',
+    //     childClass: {
+    //              // dataSource: Value.query('data.list'),
+    //             template: '<li><a class="is-active">{name}</a></li>',
+    //             // template: resource('./templates/menu-li.tmpl'),
+    //             binding: {
+    //                 name:'name',
+    //                 url:'url'
+    //             },
+    //             // action:{
+    //             //     click:function () {
+    //             //         router.navigate('dashboard/' + this.data.url);
+    //             //     }
+    //             // },
+    //         },
+    //     childNodes:[{name: 'Пользователи', url:'users'}, {name: 'Роли', url:'roles'},]
+    // }]
 });
