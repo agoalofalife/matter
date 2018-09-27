@@ -38,12 +38,6 @@ module.exports = new Node({
     active:true,
     dataSource: menu.all,
     template: resource('./templates/menu.tmpl'),
-    // binding: {
-    //     id: 'data:',
-    //     title: 'data:',
-    //     type: 'data:',
-    //     typeName:'data:',
-    // },
     // selected: currentPage.compute(function(node, page){
     //     return node.data.url == page
     // }),
@@ -51,12 +45,7 @@ module.exports = new Node({
         template: resource('./templates/menu-item.tmpl'),
         dataSource: Value.query('data.list'),
         binding: {
-            // menuItem: 'satellite:',
-            // id: 'data:',
             title: 'data:',
-            // name: 'data:',
-            // type: 'data:',
-            // typeName:'data:',
         },
         childClass: {
                  // dataSource: Value.query('data.list'),
@@ -72,59 +61,5 @@ module.exports = new Node({
                 //     }
                 // },
             },
-     // childNodes:[
-     //     {
-     //         // binding: {
-     //         //     type: 'data:type',
-     //         //     typeName: 'data:typeName',
-     //         // },
-     //         template: resource('./templates/menu-li.tmpl'),
-     //         dataSource: Value.query('data').as(function (t) {
-     //             console.log(t)
-     //         }),
-     //         childClass: {
-     //             template: '<li><a class="is-active">{name}</a></li>',
-     //             binding: {
-     //                 name: 'data:',
-     //             },
-     //         },
-     //         childFactory:function (config) {
-     //             console.log(config)
-     //         }
-     //     }
-     // ]
-    // childClass: {
-    //          // dataSource: Value.query('data.list'),
-    //         template: '<li><a class="is-active">{name}</a></li>',
-    //         // template: resource('./templates/menu-li.tmpl'),
-    //         binding: {
-    //             name:'data:',
-    //             url:'data:'
-    //         },
-    //         action:{
-    //             click:function () {
-    //                 router.navigate('dashboard/' + this.data.url);
-    //             }
-    //         },
-    //     }
-        // childClass:MenuItem,
     },
-    // childNodes:[{
-    //     title:'Основное',
-    //     childClass: {
-    //              // dataSource: Value.query('data.list'),
-    //             template: '<li><a class="is-active">{name}</a></li>',
-    //             // template: resource('./templates/menu-li.tmpl'),
-    //             binding: {
-    //                 name:'name',
-    //                 url:'url'
-    //             },
-    //             // action:{
-    //             //     click:function () {
-    //             //         router.navigate('dashboard/' + this.data.url);
-    //             //     }
-    //             // },
-    //         },
-    //     childNodes:[{name: 'Пользователи', url:'users'}, {name: 'Роли', url:'roles'},]
-    // }]
 });
