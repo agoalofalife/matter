@@ -1,6 +1,6 @@
 const Node = require('basis.ui').Node;
 const users = require('../../type.js').user;
-const Preloader = require('../../components/preloader/preloader');
+const Preloader = require('../preloader/index');
 let STATE = require('basis.data').STATE;
 let Value = require('basis.data').Value;
 let Expression = require('basis.data.value').Expression;
@@ -21,9 +21,9 @@ module.exports = new Node({
         }
     },
     binding: {
+        preloader: 'satellite:',
         loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
         isError:Value.query('childNodesState').as(state => state == STATE.ERROR),
-        preloader: 'satellite:',
         isNotShow:node => new Expression(
             Value.query(node, 'childNodesState'),
             Value.query(node, 'dataSource.itemCount'),
