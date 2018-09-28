@@ -34,7 +34,7 @@ module.exports = new Node({
         binding: {
             id: 'data:',
             name: 'data:',
-            email: 'data:',
+            title: 'data:',
         },
     },
     dataSource: users.all,
