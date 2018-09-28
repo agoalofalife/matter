@@ -1,9 +1,9 @@
 const Node = require('basis.ui').Node;
-const Menu = require('./../../components/menu/index');
-
 const router = basis.require('basis.router');
-const pages = require('../dashboard/dashboardRoutes');
+
+const Menu = require('./../../components/menu/index');
 const Navbar = require('../../components/navbar/index');
+const pages = require('../dashboard/dashboardRoutes');
 
 
 let page = router

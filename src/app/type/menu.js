@@ -20,7 +20,8 @@ var MenuLi = entity.createType('Menu-li', {
 menu.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
-        this.setAndDestroyRemoved(menu.readList([    {
+        this.setAndDestroyRemoved(menu.readList([
+        {
             id: 1,
             title:"Основное",
             type:null,
@@ -29,7 +30,18 @@ menu.all.setSyncAction(function () {
                 {name: 'Пользователи', url:'users'},
                 {name: 'Роли', url:'roles'},
             ],
-        },]));
+        },
+            {
+                id: 2,
+                title:"Не основное",
+                type:null,
+                typeName:'',
+                list:[
+                    {name: 'Пользователи', url:'users'},
+                    {name: 'Роли', url:'roles'},
+                ],
+            },
+        ]));
         this.setState(STATE.READY);
     }.bind(this), 1000)
 
