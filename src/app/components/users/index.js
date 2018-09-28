@@ -27,14 +27,17 @@ module.exports = new Node({
         isNotShow:node => new Expression(
             Value.query(node, 'childNodesState'),
             Value.query(node, 'dataSource.itemCount'),
-            (state, itemCount) => !itemCount && (state == STATE.READY || state == STATE.ERROR)),
+            (state, itemCount) => !itemCount && (state == STATE.PROCESSING || state == STATE.ERROR)),
     },
     childClass: {
         template: resource('./templates/users-table-item.tmpl'),
         binding: {
             id: 'data:',
-            name: 'data:',
-            title: 'data:',
+            email: 'data:',
+            phone: 'data:',
+            confirmed: 'data:',
+            created_at: 'data:',
+            recent_activity: 'data:',
         },
     },
     dataSource: users.all,

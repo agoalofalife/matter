@@ -4,14 +4,27 @@ let action = require('basis.net.action');
 let wrap = require('basis.data').wrap;
 let user = entity.createType('User', {
     id: entity.IntId,
-    title: String,
+    email: String,
+    phone: String,
+    confirmed: String,
+    created_at:Date,
+    recent_activity:Date,
 });
-
+user.extendReader(data => data.recent_activity = data.sign_in_at);
 
 user.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
-        this.setAndDestroyRemoved(user.readList([{id:1, title:'email'}]));
+        this.setAndDestroyRemoved(user.readList([
+            {
+                id:1,
+                email:'af@gmail.com',
+                phone:'+7 232 234 34 34',
+                confirmed:true,
+                created_at:'2018-19-08 18:40:06',
+                sign_in_at:'2018-20-08 18:40:06'
+            }
+            ]));
         this.setState(STATE.READY);
     }.bind(this), 2500)
 
