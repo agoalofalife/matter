@@ -26,7 +26,7 @@ user.all.setSyncAction(function () {
             }
             ]));
         this.setState(STATE.READY);
-    }.bind(this), 2500)
+    }.bind(this), 600)
 
 });
 // user.all.setSyncAction(action.create({
