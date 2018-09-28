@@ -1,6 +1,6 @@
 const Node = require('basis.ui').Node;
 const users = require('../../type.js').user;
-const Preloader = require('../preloader/index');
+const Preloader = require('../../ui/preloader/index');
 let STATE = require('basis.data').STATE;
 let Value = require('basis.data').Value;
 let Expression = require('basis.data.value').Expression;
