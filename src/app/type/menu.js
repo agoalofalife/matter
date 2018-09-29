@@ -32,16 +32,6 @@ menu.all.setSyncAction(function () {
                 {name: 'Роли', url:'roles'},
             ],
         },
-            {
-                id: 2,
-                title:"Не основное",
-                type:null,
-                typeName:'',
-                list:[
-                    {name: 'Пользователи', url:'users'},
-                    {name: 'Роли', url:'roles'},
-                ],
-            },
         ]));
 
     }.bind(this), 1000)
