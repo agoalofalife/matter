@@ -1,6 +1,11 @@
+<b:style src="./menu.css"/>
+
 <div>
-    <aside class="menu" b:hide="true">
+    <aside class="menu" b:hide="{isNotShow}">
         <!--{childNodesHere}-->
     </aside>
-    <!--{preloader}-->
+    <div b:show="{loading}">
+        <!--{preloader}-->
+    </div>
+    <p b:show="{isError}" class="menu-error">Меню отсутствует</p>
 </div>

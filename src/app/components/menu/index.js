@@ -1,5 +1,7 @@
 const Node = require('basis.ui').Node;
 let Value = require('basis.data').Value;
+let STATE = require('basis.data').STATE;
+const Expression = require('basis.data.value').Expression;
 const router = basis.require('basis.router');
 
 const preloaderVerically = require('../../ui/preloader-vertically/index');
@@ -12,7 +14,13 @@ module.exports = new Node({
     dataSource: menu.all,
     template: resource('./templates/menu.tmpl'),
     binding:{
-        preloader:'satellite:'
+        preloader:'satellite:',
+        loading: Value.query('childNodesState').as(state => state == STATE.PROCESSING),
+        isNotShow:node => new Expression(
+            Value.query(node, 'childNodesState'),
+            Value.query(node, 'dataSource.itemCount'),
+            (state, itemCount) => !itemCount || (state == STATE.PROCESSING || state == STATE.ERROR)),
+        isError:Value.query('childNodesState').as(state => state == STATE.ERROR),
     },
     satellite: {
         preloader: preloaderVerically,

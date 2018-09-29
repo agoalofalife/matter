@@ -20,6 +20,7 @@ var MenuLi = entity.createType('Menu-li', {
 menu.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
+        this.setState(STATE.READY);
         this.setAndDestroyRemoved(menu.readList([
         {
             id: 1,
@@ -42,7 +43,7 @@ menu.all.setSyncAction(function () {
                 ],
             },
         ]));
-        this.setState(STATE.READY);
+
     }.bind(this), 1000)
 
 });
