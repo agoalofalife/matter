@@ -1,6 +1,8 @@
 const Node = require('basis.ui').Node;
-const router = basis.require('basis.router');
 let Value = require('basis.data').Value;
+const router = basis.require('basis.router');
+
+const preloaderVerically = require('../../ui/preloader-vertically/index');
 const menu = require('../../type').menu;
 let currentPage = Value.from(router.route('dashboard/:page').param('page'));
 
@@ -9,6 +11,12 @@ module.exports = new Node({
     active:true,
     dataSource: menu.all,
     template: resource('./templates/menu.tmpl'),
+    binding:{
+        preloader:'satellite:'
+    },
+    satellite: {
+        preloader: preloaderVerically,
+    },
     childClass: {
         template: resource('./templates/menu-item.tmpl'),
         dataSource: Value.query('data.list'),
