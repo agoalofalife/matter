@@ -1,6 +1,18 @@
 <b:style src="./users.css"/>
 
 <div class="container-dashboard">
+    <div class="columns">
+        <div class="column is-one-fifth">
+            <div class="field">
+                <label class="label">Фильтр</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Введите email" event-input="input">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <table class="table" b:hide="{isNotShow}">
         <thead>
         <tr>
