@@ -1,4 +1,6 @@
-<tr class="is-selected">
+<b:define name="is-selected" from="selected" type="bool"/>
+
+<tr class="{is-selected}" event-click="select">
     <th>{id}</th>
     <td>{email}</td>
     <td>{phone}</td>

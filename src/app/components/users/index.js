@@ -9,6 +9,7 @@ module.exports = new Node({
     className:'dashboard.users',
     template: resource('./templates/users.tmpl'),
     active: true,
+    selection: true,
     satellite: {
         preloader: Preloader,
     },
@@ -30,6 +31,7 @@ module.exports = new Node({
             (state, itemCount) => !itemCount || (state == STATE.PROCESSING || state == STATE.ERROR)),
     },
     childClass: {
+
         template: resource('./templates/users-table-item.tmpl'),
         binding: {
             id: 'data:',
@@ -39,6 +41,15 @@ module.exports = new Node({
             created_at: 'data:',
             recent_activity: 'data:',
         },
+        action: {
+            select: function(event){
+                if (this.selected) {
+                    this.unselect();
+                } else {
+                    this.select();
+                }
+            }
+        }
     },
     dataSource: users.all,
 });
