@@ -1,4 +1,5 @@
 <b:define name="is-selected" from="selected" type="bool"/>
+<b:style src="./users_item.css"/>
 
 <tr class="{is-selected}" event-click="select">
     <th>{id}</th>
@@ -7,4 +8,7 @@
     <td>{created_at}</td>
     <td>{confirmed}</td>
     <td>{recent_activity}</td>
+    <td class="users_item__delete">
+        <button class="delete" event-click="delete"></button>
+    </td>
 </tr>
