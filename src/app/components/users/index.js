@@ -73,12 +73,6 @@ module.exports = new Node({
             created_at: 'data:',
             recent_activity: 'data:',
         },
-        handler:{
-            select:function (e) {
-                currentDeleteUser.set(e.data.id);
-
-            }
-        },
         action: {
             select: function(e){
                 if (this.selected) {
@@ -88,6 +82,7 @@ module.exports = new Node({
                 }
             },
             deleted:function () {
+                currentDeleteUser.set(this.data.id);
                 Modal.makeActive();
             }
         }

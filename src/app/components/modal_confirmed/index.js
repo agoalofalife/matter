@@ -1,7 +1,6 @@
 const Node = require('basis.ui').Node;
 const resolveValue = require('basis.data').resolveValue;
 
-
 module.exports = Node.subclass({
     className:'modal.confirmed',
     template: resource('./templates/modal_confirmed.tmpl'),
