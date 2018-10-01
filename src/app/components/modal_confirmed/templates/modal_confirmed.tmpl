@@ -1,9 +1,37 @@
 <b:define name="is-active" from="active" type="bool"/>
-
+<b:style>
+    .field.is-grouped {
+    justify-content: center;
+    }
+</b:style>
 <div class="modal {is-active}">
     <div class="modal-background"></div>
     <div class="modal-content">
-        <!-- Any other Bulma elements you want -->
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content has-text-centered">
+                        <p>
+                          Вы уверены что хотите удалить?
+                        </p>
+                    </div>
+                    <div class="field is-grouped button_group">
+                        <p class="control is-half">
+                            <a class="button is-success is-link">
+                                Да
+                            </a>
+                        </p>
+                        <p class="control">
+                            <a class="button " event-click="close">
+                                Нет
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+
     </div>
     <button class="modal-close is-large" aria-label="close" event-click="close"></button>
 </div>
