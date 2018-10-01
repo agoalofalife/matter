@@ -2,6 +2,8 @@ let entity = require('basis.entity');
 const STATE = basis.require('basis.data').STATE;
 let action = require('basis.net.action');
 let wrap = require('basis.data').wrap;
+const faker = require('node_modules.faker.index');
+
 let user = entity.createType('User', {
     id: entity.IntId,
     email: String,
