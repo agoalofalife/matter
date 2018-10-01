@@ -12,18 +12,18 @@
                 <div class="media-content">
                     <div class="content has-text-centered">
                         <p>
-                          Вы уверены что хотите удалить?
+                          {question}
                         </p>
                     </div>
                     <div class="field is-grouped button_group">
                         <p class="control is-half">
-                            <a class="button is-success is-link">
-                                Да
+                            <a class="button is-success is-link" event-click="confirmed">
+                                {yes}
                             </a>
                         </p>
                         <p class="control">
                             <a class="button " event-click="close">
-                                Нет
+                                {no}
                             </a>
                         </p>
                     </div>

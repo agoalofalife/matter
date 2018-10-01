@@ -6,13 +6,20 @@ module.exports = Node.subclass({
     className:'modal.confirmed',
     template: resource('./templates/modal_confirmed.tmpl'),
     binding: {
-     active:'active'
+     active:'active',
+     question:'question',
+     yes:'yes',
+     no:'no'
     },
     action: {
         close: function(){
             if (!this.isDisabled())
                 this.setActive(false);
-        }
+        },
+        confirmed: function(e){
+            if (!this.isDisabled())
+                this.confirmed(e);
+        },
     },
     init:function () {
         Node.prototype.init.call(this);
@@ -41,4 +48,24 @@ module.exports = Node.subclass({
                 this.updateBind('active');
         }
     },
+
+    /**
+     * Helper method
+     */
+    notActive:function(){
+        this.setActive(false);
+    },
+
+    /**
+     * Helper method
+     */
+    makeActive:function(){
+        this.setActive(true);
+    },
+    /**
+     * Handler event click confirmed in modal
+     */
+    confirmed:function (e) {
+        // ... something
+    }
 });

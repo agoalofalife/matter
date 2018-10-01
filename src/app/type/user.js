@@ -35,8 +35,16 @@ user.all.setSyncAction(function () {
             ]));
         this.setState(STATE.READY);
     }.bind(this), 900)
-
 });
+user.all.delete = function (deletedId) {
+    this.setState(STATE.PROCESSING);
+    setTimeout(function () {
+        this.set(this.getValues('data').filter(function (user) {
+            return user.id !== deletedId;
+        }));
+        this.setState(STATE.READY);
+    }.bind(this), 400)
+};
 // user.all.setSyncAction(action.create({
 //     url: 'http://localhost:8000/api/users',
 //     contentType: 'application/json',

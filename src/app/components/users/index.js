@@ -8,7 +8,7 @@ let users = require('../../type.js').user;
 let Preloader = require('../../ui/preloader/index');
 let ModalConfirmed = require('../modal_confirmed/index');
 let searchedUser = new Value({ value: '' });
-let activeModal = new Value({value: false});
+let currentDeleteUser = new Value({value:''});
 
 let filtered = new Filter({
     source: users.all,
@@ -16,7 +16,16 @@ let filtered = new Filter({
         return item.data.email.toLowerCase().indexOf(searchedUser.value.toLowerCase()) !== -1;
     }
 });
-let Modal = new ModalConfirmed();
+
+let Modal = new ModalConfirmed({
+    question:'Вы уверены что хотите удалить?',
+    yes:'Да',
+    no:'Нет',
+    confirmed: function (e) {
+        filtered.source.delete(currentDeleteUser.value);
+        this.notActive();
+    }
+});
 
 searchedUser.link(null, () => filtered.applyRule());
 
@@ -64,6 +73,12 @@ module.exports = new Node({
             created_at: 'data:',
             recent_activity: 'data:',
         },
+        handler:{
+            select:function (e) {
+                currentDeleteUser.set(e.data.id);
+
+            }
+        },
         action: {
             select: function(e){
                 if (this.selected) {
@@ -72,8 +87,8 @@ module.exports = new Node({
                     this.select();
                 }
             },
-            delete:function (e) {
-                Modal.setActive(true);
+            deleted:function () {
+                Modal.makeActive();
             }
         }
     },
