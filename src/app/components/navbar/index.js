@@ -19,8 +19,8 @@ module.exports = new Node({
     },
     dataSource: new Dataset({
         items: [
-            { id: 1, title: 'Headcrab' },
-            { id: 2, title: 'Magnetto' },
+            { id: 1, title: 'Не заполнено' },
+            // { id: 2, title: 'Magnetto' },
         ].map(function (value) {
             return new DataObject({
                 data: {

@@ -34,7 +34,7 @@ user.all.setSyncAction(function () {
             }
             ]));
         this.setState(STATE.READY);
-    }.bind(this), 800)
+    }.bind(this), 900)
 
 });
 // user.all.setSyncAction(action.create({

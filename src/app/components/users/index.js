@@ -16,9 +16,7 @@ let filtered = new Filter({
         return item.data.email.toLowerCase().indexOf(searchedUser.value.toLowerCase()) !== -1;
     }
 });
-let Modal = new ModalConfirmed({
-    active: activeModal,
-});
+let Modal = new ModalConfirmed();
 
 searchedUser.link(null, () => filtered.applyRule());
 
@@ -75,7 +73,7 @@ module.exports = new Node({
                 }
             },
             delete:function (e) {
-                activeModal.set(true);
+                Modal.setActive(true);
             }
         }
     },
