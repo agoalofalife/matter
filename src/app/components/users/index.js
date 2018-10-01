@@ -43,7 +43,7 @@ module.exports = new Node({
         ownerChanged() {
             // data deprecate if owner exist after change
             if (this.owner) {
-                this.dataSource.deprecate();
+                this.dataSource.source.deprecate();
             }
         }
     },
