@@ -22,7 +22,7 @@ function generate() {
                 );
             }
         }
-        return rawData;
+        return rawData.slice();
     }
 }
 let rawData = generate();
@@ -40,26 +40,6 @@ user.extendReader(data => data.recent_activity = data.sign_in_at);
 user.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
-        // this.setAndDestroyRemoved(user.readList([
-        //     {
-        //         id:1,
-        //         email:'af@gmail.com',
-        //         phone:'+7 232 234 34 34',
-        //         confirmed:true,
-        //         created_at:'2018-19-08 18:40:06',
-        //         sign_in_at:'2018-20-08 18:40:06'
-        //     },
-        //     {
-        //         id:2,
-        //         email:'aassaf@gmail.com',
-        //         phone:'+7 342 234 34 34',
-        //         confirmed:false,
-        //         created_at:'2018-34-08 18:40:06',
-        //         sign_in_at:'2018-27-08 18:40:06'
-        //     }
-        //     ]));
-        // let data = rawData();
-        // console.log(rawData())
         this.setAndDestroyRemoved(user.readList(rawData()));
         this.setState(STATE.READY);
     }.bind(this), 900)
