@@ -58,12 +58,13 @@ user.all.setSyncAction(function () {
         //         sign_in_at:'2018-27-08 18:40:06'
         //     }
         //     ]));
-        let data = rawData();
-        console.log(data)
-        this.setAndDestroyRemoved(user.readList(data));
+        // let data = rawData();
+        // console.log(rawData())
+        this.setAndDestroyRemoved(user.readList(rawData()));
         this.setState(STATE.READY);
     }.bind(this), 900)
 });
+
 user.all.delete = function (deletedId) {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
