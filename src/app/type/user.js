@@ -1,31 +1,8 @@
 let entity = require('basis.entity');
 const STATE = basis.require('basis.data').STATE;
 let action = require('basis.net.action');
-let wrap = require('basis.data').wrap;
-// const Faker = require('faker:locales/ru/index.js');
+let fakeUsers = require('app.fakers.user');
 
-
-function generate() {
-    let rawData = [];
-    return function () {
-        if (rawData.length === 0) {
-            for (var i = 0; i < 1000; i++) {
-                rawData.push(
-                    {
-                        id:faker.random.number(),
-                        email:faker.internet.email(),
-                        phone:faker.phone.phoneNumber(),
-                        confirmed:faker.random.boolean(),
-                        created_at:'2018-19-08 18:40:06',
-                        sign_in_at:'2018-20-08 18:40:06'
-                    }
-                );
-            }
-        }
-        return rawData.slice();
-    }
-}
-let rawData = generate();
 
 let user = entity.createType('User', {
     id: entity.IntId,
@@ -40,7 +17,7 @@ user.extendReader(data => data.recent_activity = data.sign_in_at);
 user.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
-        this.setAndDestroyRemoved(user.readList(rawData()));
+        this.setAndDestroyRemoved(user.readList(fakeUsers(1000)));
         this.setState(STATE.READY);
     }.bind(this), 900)
 });
