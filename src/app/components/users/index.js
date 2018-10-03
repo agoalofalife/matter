@@ -23,10 +23,10 @@ let filtered = new Filter({
     }
 });
 
-var sliced = new Slice({
+let sliced = new Slice({
     source: filtered,
     rule: 'data.id',
-    offset:paginatorActivePage.value * countItemsPage,
+    offset:countItemsPage,
     orderDesc: true,
     limit: countItemsPage
 });
@@ -42,6 +42,7 @@ let Modal = new ModalConfirmed({
 });
 
 searchedUser.link(null, () => filtered.applyRule());
+// paginatorActivePage.link(null, () => sliced.applyRule());
 
 
 module.exports = new Node({
@@ -60,6 +61,8 @@ module.exports = new Node({
             handler: {
                 activePageChanged:function (e) {
                     paginatorActivePage.set(e.activePage);
+                    sliced.setOffset(e.activePage * countItemsPage);
+                    sliced.applyRule();
                 }
             }
         }),
