@@ -1,19 +1,26 @@
 <b:style src="./users.css"/>
 
 <div class="container-dashboard">
-    <div class="columns" b:hide="{isNotShow}">
-        <div class="column is-one-fifth">
+    <div class="columns is-desktop is-vcentered">
+        <div class="column is-3">
             <div class="field">
                 <label class="label">Фильтр</label>
                 <div class="control">
                     <input class="input" type="text" placeholder="Введите email" event-input="input">
                 </div>
             </div>
-
+        </div>
+        <div class="column is-2 is-offset-7">
+            <div class="field">
+                <label class="label">Всего: {childCount}</label>
+                <!--<div class="control">-->
+                    <!--<label>23</label>-->
+                <!--</div>-->
+            </div>
         </div>
     </div>
 
-    <table class="table" b:hide="{isNotShow}">
+    <table class="table is-scrollable" b:hide="{isNotShow}">
         <thead>
         <tr>
             <th><abbr title="Position">#</abbr></th>
@@ -22,6 +29,7 @@
             <th>Последния активность</th>
             <th><abbr title="Подтверждение аккаунта">Подтвержден</abbr></th>
             <th>Дата создания</th>
+            <th></th>
         </tr>
         </thead>
 
@@ -29,6 +37,10 @@
         <!--{childNodesHere}-->
         </tbody>
     </table>
+    <div class="column is-half is-offset-one-quarter" b:hide="{isNotShow}">
+        <!--{paginator}-->
+    </div>
+
     <p b:show="{isError}" class="col-md-9">Произошла ошибка</p>
 
     <div b:show="{loading}" class="preloader">

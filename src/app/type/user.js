@@ -9,15 +9,15 @@ let user = entity.createType('User', {
     email: String,
     phone: String,
     confirmed: String,
-    created_at:Date,
-    recent_activity:Date,
+    created_at:String,
+    recent_activity:String,
 });
 user.extendReader(data => data.recent_activity = data.sign_in_at);
 
 user.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
     setTimeout(function () {
-        this.setAndDestroyRemoved(user.readList(fakeUsers(1000)));
+        this.setAndDestroyRemoved(user.readList(fakeUsers(100)));
         this.setState(STATE.READY);
     }.bind(this), 900)
 });

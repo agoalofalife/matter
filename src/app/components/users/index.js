@@ -3,18 +3,32 @@ const STATE = require('basis.data').STATE;
 const Value = require('basis.data').Value;
 const Expression = require('basis.data.value').Expression;
 const Filter = require('basis.data.dataset').Filter;
+const Slice = basis.require('basis.data.dataset').Slice;
+
 
 let users = require('../../type.js').user;
 let Preloader = require('../../ui/preloader/index');
 let ModalConfirmed = require('../modal_confirmed/index');
+let Paginator = basis.require('basis.ui.paginator').Paginator;
 let searchedUser = new Value({ value: '' });
 let currentDeleteUser = new Value({value:''});
+let paginatorActivePage = new Value({ value:1});
+
+const countItemsPage = 10;
 
 let filtered = new Filter({
     source: users.all,
     rule: item =>  {
         return item.data.email.toLowerCase().indexOf(searchedUser.value.toLowerCase()) !== -1;
     }
+});
+
+var sliced = new Slice({
+    source: filtered,
+    rule: 'data.id',
+    offset:paginatorActivePage.value * countItemsPage,
+    orderDesc: true,
+    limit: countItemsPage
 });
 
 let Modal = new ModalConfirmed({
@@ -29,15 +43,26 @@ let Modal = new ModalConfirmed({
 
 searchedUser.link(null, () => filtered.applyRule());
 
+
 module.exports = new Node({
     className:'dashboard.users',
     template: resource('./templates/users.tmpl'),
     active: true,
     selection: true,
-    dataSource: filtered,
+    dataSource: sliced,
     satellite: {
         preloader: Preloader,
         modal:Modal,
+        paginator: new Paginator({ 
+            pageCount: Value.query(filtered, 'itemCount'), 
+            pageSpan: 10,
+            activePage: 1,
+            handler: {
+                activePageChanged:function (e) {
+                    paginatorActivePage.set(e.activePage);
+                }
+            }
+        }),
     },
     handler: {
         ownerChanged() {
@@ -57,6 +82,7 @@ module.exports = new Node({
 
         preloader: 'satellite:',
         modal: 'satellite:',
+        paginator:'satellite:'
     },
     action: {
         input: function(e){
