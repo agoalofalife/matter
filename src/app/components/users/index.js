@@ -5,14 +5,12 @@ const Expression = require('basis.data.value').Expression;
 const Filter = require('basis.data.dataset').Filter;
 const Slice = basis.require('basis.data.dataset').Slice;
 
-
 let users = require('../../type.js').user;
 let Preloader = require('../../ui/preloader/index');
 let ModalConfirmed = require('../modal_confirmed/index');
 let Paginator = basis.require('basis.ui.paginator').Paginator;
 let searchedUser = new Value({ value: '' });
 let currentDeleteUser = new Value({value:''});
-let paginatorActivePage = new Value({ value:1});
 
 const countItemsPage = 10;
 
@@ -42,8 +40,6 @@ let Modal = new ModalConfirmed({
 });
 
 searchedUser.link(null, () => filtered.applyRule());
-// paginatorActivePage.link(null, () => sliced.applyRule());
-
 
 module.exports = new Node({
     className:'dashboard.users',
@@ -60,7 +56,6 @@ module.exports = new Node({
             activePage: 1,
             handler: {
                 activePageChanged:function (e) {
-                    paginatorActivePage.set(e.activePage);
                     sliced.setOffset(e.activePage * countItemsPage);
                     sliced.applyRule();
                 }
@@ -71,9 +66,7 @@ module.exports = new Node({
         ownerChanged() {
             // data deprecate if owner exist after change
             if (this.owner) {
-                // console.log(this.dataSource.source.source)
-                this.dataSource.source.source.deprecate();
-                // this.dataSource.source.deprecate();
+                users.all.deprecate();
             }
         }
     },
