@@ -71,6 +71,7 @@ module.exports = new Node({
         }
     },
     binding: {
+        countUsers: Value.query(users.all, 'itemCount'),
         loading: Value.query('dataSource.source.source.state').as(state => state == STATE.PROCESSING),
         isError:Value.query('dataSource.source.source.state').as(state => state == STATE.ERROR),
         isNotShow:node => new Expression(
