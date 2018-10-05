@@ -34,7 +34,7 @@ let Modal = new ModalConfirmed({
     yes:'Да',
     no:'Нет',
     confirmed: function (e) {
-        filtered.source.delete(currentDeleteUser.value);
+        users.all.delete(currentDeleteUser.value);
         this.notActive();
     }
 });
