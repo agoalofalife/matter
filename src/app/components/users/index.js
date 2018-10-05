@@ -55,7 +55,7 @@ module.exports = new Node({
         preloader: Preloader,
         modal:Modal,
         paginator: new Paginator({ 
-            pageCount: Value.query(filtered, 'itemCount'), 
+            pageCount: Value.query(filtered, 'itemCount').as(count => count / countItemsPage),
             pageSpan: 10,
             activePage: 1,
             handler: {
@@ -71,15 +71,17 @@ module.exports = new Node({
         ownerChanged() {
             // data deprecate if owner exist after change
             if (this.owner) {
-                this.dataSource.source.deprecate();
+                // console.log(this.dataSource.source.source)
+                this.dataSource.source.source.deprecate();
+                // this.dataSource.source.deprecate();
             }
         }
     },
     binding: {
-        loading: Value.query('dataSource.source.state').as(state => state == STATE.PROCESSING),
-        isError:Value.query('dataSource.source.state').as(state => state == STATE.ERROR),
+        loading: Value.query('dataSource.source.source.state').as(state => state == STATE.PROCESSING),
+        isError:Value.query('dataSource.source.source.state').as(state => state == STATE.ERROR),
         isNotShow:node => new Expression(
-            Value.query(node, 'dataSource.source.state'),
+            Value.query(node, 'dataSource.source.source.state'),
             Value.query(node, 'dataSource.itemCount'),
             (state, itemCount) => !itemCount || (state == STATE.PROCESSING || state == STATE.ERROR)),
 
