@@ -1,17 +1,20 @@
 const Node = require('basis.ui').Node;
 const STATE = require('basis.data').STATE;
 const Value = require('basis.data').Value;
+const DataObject = require('basis.data').Object;
 const Expression = require('basis.data.value').Expression;
 const Filter = require('basis.data.dataset').Filter;
 const Slice = basis.require('basis.data.dataset').Slice;
+const event = require('basis.event');
 
+let UserEdit = require('./../user_edit/index');
 let users = require('../../type.js').user;
 let Preloader = require('../../ui/preloader/index');
 let ModalConfirmed = require('../modal_confirmed/index');
 let Paginator = basis.require('basis.ui.paginator').Paginator;
 let searchedUser = new Value({ value: '' });
 let currentDeleteUser = new Value({value:''});
-
+let DataSourceUserEdit = new DataObject([]);
 const countItemsPage = 10;
 
 let filtered = new Filter({
@@ -47,6 +50,7 @@ module.exports = new Node({
     active: true,
     selection: true,
     dataSource: sliced,
+    emit_updateUserEdit: event.create('updateUserEdit'),
     satellite: {
         preloader: Preloader,
         modal:Modal,
@@ -61,6 +65,13 @@ module.exports = new Node({
                 }
             }
         }),
+        userEdit:{
+            instance:UserEdit,
+            events:'updateUserEdit',
+            existsIf: function(owner){
+                return !Object.keys(this.instance.data).length == 0;
+            },
+        }
     },
     handler: {
         ownerChanged() {
@@ -81,7 +92,9 @@ module.exports = new Node({
 
         preloader: 'satellite:',
         modal: 'satellite:',
-        paginator:'satellite:'
+        paginator:'satellite:',
+        userEdit:'satellite:',
+        isUserEdit:Value.query(UserEdit, 'data.id').as(id => basis.fn.$defined(id))
     },
     action: {
         input: function(e){
@@ -111,7 +124,9 @@ module.exports = new Node({
                 Modal.makeActive();
             },
             edit:function () {
-                console.log('edit')
+                UserEdit.update(this.data);
+                console.log(this.data)
+                this.parentNode.emit_updateUserEdit();
             }
         }
     },

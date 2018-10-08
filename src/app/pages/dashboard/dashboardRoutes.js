@@ -3,5 +3,5 @@ const DashboardStart = require('./../../components/start/index');
 
 module.exports = {
     'users':Users,
-    'start':DashboardStart
+    'start':DashboardStart,
 };
