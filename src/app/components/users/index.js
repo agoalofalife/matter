@@ -49,7 +49,6 @@ module.exports = new Node({
     active: true,
     selection: true,
     dataSource: sliced,
-    emit_updateUserEdit: event.create('updateUserEdit'),
     satellite: {
         preloader: Preloader,
         modal:Modal,
@@ -66,8 +65,9 @@ module.exports = new Node({
         }),
         userEdit:{
             instance:UserEdit,
-            events:'updateUserEdit',
+            events:'delegateChanged',
             existsIf: function(owner){
+                console.log(this.instance)
                 return !Object.keys(this.instance.data).length == 0;
             },
         }
@@ -93,7 +93,10 @@ module.exports = new Node({
         modal: 'satellite:',
         paginator:'satellite:',
         userEdit:'satellite:',
-        isUserEdit:Value.query(UserEdit, 'data.id').as(id => basis.fn.$defined(id))
+        isUserEdit:Value.from(UserEdit, 'delegateChanged', 'target').as(function (id) {
+            console.log(id, 'target')
+            return basis.fn.$defined(id)
+        })
     },
     action: {
         input: function(e){
@@ -123,9 +126,7 @@ module.exports = new Node({
                 Modal.makeActive();
             },
             edit:function () {
-                UserEdit.update(this.data);
-                console.log(this.data)
-                this.parentNode.emit_updateUserEdit();
+                UserEdit.setDelegate(this.target);
             }
         }
     },

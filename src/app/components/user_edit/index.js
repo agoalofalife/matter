@@ -14,9 +14,7 @@ module.exports = new Node({
     },
     action:{
         cancel:function () {
-            console.log('cancel', this)
-            this.update({});
-            console.log(this.clear())
+            this.setDelegate();
         }
     }
 });
