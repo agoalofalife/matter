@@ -1,7 +1,6 @@
 const Node = require('basis.ui').Node;
 const STATE = require('basis.data').STATE;
 const Value = require('basis.data').Value;
-const DataObject = require('basis.data').Object;
 const Expression = require('basis.data.value').Expression;
 const Filter = require('basis.data.dataset').Filter;
 const Slice = basis.require('basis.data.dataset').Slice;
@@ -49,6 +48,7 @@ module.exports = new Node({
     active: true,
     selection: true,
     dataSource: sliced,
+    emit_updateTargetUserEdit: event.create('updateTargetUserEdit'),
     satellite: {
         preloader: Preloader,
         modal:Modal,
@@ -65,7 +65,7 @@ module.exports = new Node({
         }),
         userEdit:{
             instance:UserEdit,
-            events:'delegateChanged',
+            events:'updateTargetUserEdit',
             existsIf: function(owner){
                 console.log(this.instance)
                 return !Object.keys(this.instance.data).length == 0;
@@ -127,6 +127,7 @@ module.exports = new Node({
             },
             edit:function () {
                 UserEdit.setDelegate(this.target);
+                this.parentNode.emit_updateTargetUserEdit();
             }
         }
     },
