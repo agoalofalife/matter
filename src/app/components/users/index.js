@@ -109,6 +109,9 @@ module.exports = new Node({
             deleted:function () {
                 currentDeleteUser.set(this.data.id);
                 Modal.makeActive();
+            },
+            edit:function () {
+                console.log('edit')
             }
         }
     },
