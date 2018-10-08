@@ -14,7 +14,6 @@ let ModalConfirmed = require('../modal_confirmed/index');
 let Paginator = basis.require('basis.ui.paginator').Paginator;
 let searchedUser = new Value({ value: '' });
 let currentDeleteUser = new Value({value:''});
-let DataSourceUserEdit = new DataObject([]);
 const countItemsPage = 10;
 
 let filtered = new Filter({

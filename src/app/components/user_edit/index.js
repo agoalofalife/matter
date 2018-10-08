@@ -11,5 +11,12 @@ module.exports = new Node({
         confirmed:'data:',
         created_at:'data:',
         recent_activity:'data:',
+    },
+    action:{
+        cancel:function () {
+            console.log('cancel', this)
+            this.update({});
+            console.log(this.clear())
+        }
     }
 });
