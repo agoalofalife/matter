@@ -15,6 +15,13 @@ module.exports = new Node({
     action:{
         cancel:function () {
             this.setDelegate();
+        },
+        save:function (e) {
+            for (let field of this.tmpl.form ) {
+                console.log(field)
+            }
+            console.dir(this.binding);
+            e.die()
         }
     }
 });

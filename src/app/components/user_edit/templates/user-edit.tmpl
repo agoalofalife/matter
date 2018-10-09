@@ -1,98 +1,101 @@
 <div>
-    <div class="field is-horizontal">
-        <div class="field-label is-normal">
-            <label class="label">Id</label>
-        </div>
-        <div class="field-body">
-            <div class="field">
-                <p class="control is-expanded">
-                   {id}
-                </p>
+    <form{form} event-submit="save">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Id</label>
             </div>
-        </div>
-    </div>
-
-    <div class="field is-horizontal">
-        <div class="field-label is-normal">
-            <label class="label">Email</label>
-        </div>
-        <div class="field-body">
-            <div class="field">
-                <p class="control is-expanded">
-                    <input class="input" type="text" placeholder="{email}" value="{email}">
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="field is-horizontal">
-        <div class="field-label"></div>
-        <div class="field-body">
-            <div class="field is-expanded">
-                <div class="field has-addons">
-                    <p class="control">
-                        <a class="button is-static">
-                            +7
-                        </a>
-                    </p>
+            <div class="field-body">
+                <div class="field">
                     <p class="control is-expanded">
-                        <input class="input" type="tel" placeholder="{phone}" value="{phone}">
+                        {id}
                     </p>
                 </div>
-                <!--<p class="help">Do not enter the first zero</p>-->
             </div>
         </div>
-    </div>
 
-    <div class="field is-horizontal">
-        <div class="field-label">
-            <label class="label">Подтвержден профиль?</label>
-        </div>
-        <div class="field-body">
-            <div class="field is-narrow">
-                <div class="control">
-                    <label class="radio">
-                        <input type="radio" name="member" checked="{confirmed}">
-                        Да
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="member" checked="{confirmed}">
-                        Нет
-                    </label>
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Email</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded">
+                        <input class="input" type="text" name="email" placeholder="{email}" value="{email}">
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="field is-horizontal">
-        <div class="field-label is-normal">
-            <label class="label">Дата создания</label>
-        </div>
-        <div class="field-body">
-            <div class="field">
-                <div class="control">
-                    <input class="input" type="date" placeholder="{created_at}" value="{created_at}">
+        <div class="field is-horizontal">
+            <div class="field-label"></div>
+            <div class="field-body">
+                <div class="field is-expanded">
+                    <div class="field has-addons">
+                        <p class="control">
+                            <a class="button is-static">
+                                +7
+                            </a>
+                        </p>
+                        <p class="control is-expanded">
+                            <input class="input" name="phone" type="tel" placeholder="{phone}" value="{phone}">
+                        </p>
+                    </div>
+                    <!--<p class="help">Do not enter the first zero</p>-->
                 </div>
-                <!--<p class="help is-danger">-->
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Подтвержден профиль?</label>
+            </div>
+            <div class="field-body">
+                <div class="field is-narrow">
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="member" checked="{confirmed}">
+                            Да
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="member" checked="{confirmed}">
+                            Нет
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Дата создания</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="date" name="created_at" placeholder="{created_at}" value="{created_at}">
+                    </div>
+                    <!--<p class="help is-danger">-->
                     <!--This field is required-->
-                <!--</p>-->
+                    <!--</p>-->
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="field is-horizontal">
-        <div class="field-label">
-            <!-- Left empty for spacing -->
-        </div>
-        <div class="field-body ">
-            <div class="field is-grouped is-grouped-right">
-                <p class="control">
-                    <button class="button is-primary">Сохранить</button>
-                </p>
-                <p class="control">
-                    <button class="button is-warning" event-click="cancel">Отменить</button>
-                </p>
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <!-- Left empty for spacing -->
+            </div>
+            <div class="field-body ">
+                <div class="field is-grouped is-grouped-right">
+                    <p class="control">
+                        <button type="submit" class="button is-primary">Сохранить</button>
+                    </p>
+                    <p class="control">
+                        <button class="button is-warning" event-click="cancel">Отменить</button>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
+
 </div>
