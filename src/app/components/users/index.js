@@ -4,7 +4,6 @@ const Value = require('basis.data').Value;
 const Expression = require('basis.data.value').Expression;
 const Filter = require('basis.data.dataset').Filter;
 const Slice = basis.require('basis.data.dataset').Slice;
-const event = require('basis.event');
 
 let UserEdit = require('./../user_edit/index');
 let users = require('../../type.js').user;
@@ -40,7 +39,9 @@ let Modal = new ModalConfirmed({
     }
 });
 
+let isShowUserEdit = Value.from(UserEdit, 'targetChanged', 'target').as(target => !!target);
 searchedUser.link(null, () => filtered.applyRule());
+
 
 module.exports = new Node({
     className:'dashboard.users',
@@ -48,7 +49,6 @@ module.exports = new Node({
     active: true,
     selection: true,
     dataSource: sliced,
-    emit_updateTargetUserEdit: event.create('updateTargetUserEdit'),
     satellite: {
         preloader: Preloader,
         modal:Modal,
@@ -65,11 +65,7 @@ module.exports = new Node({
         }),
         userEdit:{
             instance:UserEdit,
-            events:'updateTargetUserEdit',
-            existsIf: function(owner){
-                console.log(this.instance)
-                return !Object.keys(this.instance.data).length == 0;
-            },
+            existsIf: isShowUserEdit,
         }
     },
     handler: {
@@ -93,10 +89,7 @@ module.exports = new Node({
         modal: 'satellite:',
         paginator:'satellite:',
         userEdit:'satellite:',
-        isUserEdit:Value.from(UserEdit, 'delegateChanged', 'target').as(function (id) {
-            console.log(id, 'target')
-            return basis.fn.$defined(id)
-        })
+        isUserEdit:isShowUserEdit
     },
     action: {
         input: function(e){
@@ -127,7 +120,6 @@ module.exports = new Node({
             },
             edit:function () {
                 UserEdit.setDelegate(this.target);
-                this.parentNode.emit_updateTargetUserEdit();
             }
         }
     },
