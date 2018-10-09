@@ -16,12 +16,17 @@ module.exports = new Node({
         cancel:function () {
             this.setDelegate();
         },
+        updateEmail:function (e) {
+            this.update({email:e.sender.value})
+        },
         save:function (e) {
-            for (let field of this.tmpl.form ) {
-                console.log(field)
-            }
-            console.dir(this.binding);
-            e.die()
+            console.log(this);
+            // for (let field of this.tmpl.form ) {
+            //     console.log(field)
+            // }
+            // console.dir(this.binding);
+            e.die();
+            this.setDelegate();
         }
     }
 });
