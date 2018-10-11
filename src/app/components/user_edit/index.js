@@ -1,5 +1,6 @@
 const Node = require('basis.ui').Node;
-
+const Value = require('basis.data').Value;
+const validation = require('app.validator.internet');
 
 module.exports = new Node({
     className:'user.edit',
@@ -11,6 +12,7 @@ module.exports = new Node({
         confirmed:'data:',
         created_at:'data:',
         recent_activity:'data:',
+        trueEmail:Value.query('data.email').as(email => validation.isEmail(email)),
     },
     action:{
         cancel:function () {

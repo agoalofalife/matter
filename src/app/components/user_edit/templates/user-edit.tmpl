@@ -22,6 +22,9 @@
                     <p class="control is-expanded">
                         <input class="input" type="text" name="email" placeholder="{email}" value="{email}" event-input="updateEmail">
                     </p>
+                    <p class="help is-danger" b:hide="{trueEmail}">
+                        Email не валиден
+                    </p>
                 </div>
             </div>
         </div>
@@ -74,9 +77,6 @@
                     <div class="control">
                         <input class="input" type="date" name="created_at" placeholder="{created_at}" value="{created_at}">
                     </div>
-                    <!--<p class="help is-danger">-->
-                    <!--This field is required-->
-                    <!--</p>-->
                 </div>
             </div>
         </div>
