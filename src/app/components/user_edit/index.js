@@ -1,10 +1,18 @@
 const Node = require('basis.ui').Node;
 const Value = require('basis.data').Value;
+const Expression = require('basis.data.value').Expression;
 const validation = require('app.validator.internet');
+
+
+let trueEmail = Value.query('data.email').as(email => validation.isEmail(email));
 
 module.exports = new Node({
     className:'user.edit',
     template:resource('./templates/user-edit.tmpl'),
+    // disabled:new Expression(
+    //     trueEmail,
+    //     (trueEmail) => trueEmail),
+    // disabled:trueEmail,
     binding:{
         id:'data:',
         email:'data:',
@@ -12,7 +20,7 @@ module.exports = new Node({
         confirmed:'data:',
         created_at:'data:',
         recent_activity:'data:',
-        trueEmail:Value.query('data.email').as(email => validation.isEmail(email)),
+        trueEmail:trueEmail,
     },
     action:{
         cancel:function () {
