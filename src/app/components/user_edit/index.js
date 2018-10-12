@@ -2,6 +2,7 @@ const Node = require('basis.ui').Node;
 const Value = require('basis.data').Value;
 const Expression = require('basis.data.value').Expression;
 const validation = require('app.validator.internet');
+const maskPhone = require('app.utils.mask').mobile.RU;
 
 
 let trueEmail = Value.query('data.email').as(email => validation.isEmail(email));
@@ -28,6 +29,11 @@ module.exports = new Node({
         },
         updateEmail:function (e) {
             this.update({email:e.sender.value})
+        },
+        inputPhone: function(e){
+            let phone = maskPhone(e.sender.value);
+            this.update({phone:phone})
+            e.sender.value = phone;
         },
         save:function (e) {
             console.log(this);
