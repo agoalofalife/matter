@@ -12,7 +12,7 @@ let user = entity.createType('User', {
     created_at:String,
     recent_activity:String,
 });
-user.extendReader(data => data.recent_activity = data.sign_in_at);
+console.log(user.extendReader(data => data.recent_activity = data.sign_in_at));;
 
 user.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
@@ -24,6 +24,7 @@ user.all.setSyncAction(function () {
 
 user.all.delete = function (deletedId) {
     this.setState(STATE.PROCESSING);
+
     setTimeout(function () {
         this.set(this.getValues('data').filter(function (user) {
             return user.id !== deletedId;
