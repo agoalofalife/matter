@@ -5,10 +5,16 @@ const validation = require('app.validator.internet');
 const maskPhone = require('app.utils.mask').mobile.RU;
 const maskDate = require('app.utils.mask').date.dateTime;
 
+function phoneOnlyFigures(phone) {
+    return phone.replace(/\)/, '').replace(/\(/, '').replace(/\-+/, '').replace(/\-/,'').replace(' ', '')
+}
+function isDatetime(date) {
+    return /((((19|20)([2468][048]|[13579][26]|0[48])|2000)-02-29|((19|20)[0-9]{2}-(0[4678]|1[02])-(0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}-(0[1359]|11)-(0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}-02-(0[1-9]|1[0-9]|2[0-8])))\s([01][0-9]|2[0-3]):([012345][0-9]):([012345][0-9]))/.test(date)
+}
 
 let trueEmail = Value.query('data.email').as(email => validation.isEmail(email));
-let truePhone = Value.query('data.phone').as(phone => phone ? phone.replace(/\)/, '').replace(/\(/, '').replace(/\-+/, '').replace(/\-/,'').replace(' ', '').length == 10 : false);
-let trueCreatedAt = Value.query('data.created_at').as(createdAt => createdAt ? /((((19|20)([2468][048]|[13579][26]|0[48])|2000)-02-29|((19|20)[0-9]{2}-(0[4678]|1[02])-(0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}-(0[1359]|11)-(0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}-02-(0[1-9]|1[0-9]|2[0-8])))\s([01][0-9]|2[0-3]):([012345][0-9]):([012345][0-9]))/.test(createdAt) : false);
+let truePhone = Value.query('data.phone').as(phone => phone ? phoneOnlyFigures(phone).length == 10 : false);
+let trueCreatedAt = Value.query('data.created_at').as(createdAt => createdAt ? isDatetime(createdAt) : false);
 
 const node = new Node({
     className:'user.edit',
@@ -24,14 +30,14 @@ const node = new Node({
         truePhone:truePhone,
         trueCreatedAt:trueCreatedAt,
         notConfirmed:Value.query('data.confirmed').as(confirmed => !confirmed),
-        // notSave:node => new Expression(
-        //     Value.query(trueEmail),
-        //     Value.query(truePhone),
-            // trueCreatedAt,
-            // (email, phone, created_at) => {
-            //     console.log(email, phone, created_at)
-            //     return false
-            // }),
+        notSave:node => new Expression(
+            Value.query(node, 'data.email'),
+            Value.query(node, 'data.phone'),
+            Value.query(node, 'data.created_at'),
+            (email, phone, created_at) => {
+                !validation.isEmail(email) && !(phone ? phoneOnlyFigures(phone).length == 10 : false)
+                && !(created_at ? /((((19|20)([2468][048]|[13579][26]|0[48])|2000)-02-29|((19|20)[0-9]{2}-(0[4678]|1[02])-(0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}-(0[1359]|11)-(0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}-02-(0[1-9]|1[0-9]|2[0-8])))\s([01][0-9]|2[0-3]):([012345][0-9]):([012345][0-9]))/.test(created_at) : false)
+            }),
     },
     action:{
         cancel:function () {
@@ -61,7 +67,4 @@ const node = new Node({
     }
 });
 
-
-let s = Value.query(node, 'data.email').as(email => validation.isEmail(email)).factory;
-console.log(s)
 module.exports = node
