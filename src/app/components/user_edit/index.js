@@ -5,15 +5,16 @@ const validation = require('app.validator.internet');
 const maskPhone = require('app.utils.mask').mobile.RU;
 const maskDate = require('app.utils.mask').date.dateTime;
 
-function phoneOnlyFigures(phone) {
-    return phone.replace(/\)/, '').replace(/\(/, '').replace(/\-+/, '').replace(/\-/,'').replace(' ', '')
+function isPhoneMobile(phone, length) {
+    let str = basis.fn.$undefined(phone) ? '' : phone.replace(/\)/, '').replace(/\(/, '').replace(/\-+/, '').replace(/\-/,'').replace(' ', '')
+    return str.length === length
 }
 function isDatetime(date) {
-    return /((((19|20)([2468][048]|[13579][26]|0[48])|2000)-02-29|((19|20)[0-9]{2}-(0[4678]|1[02])-(0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}-(0[1359]|11)-(0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}-02-(0[1-9]|1[0-9]|2[0-8])))\s([01][0-9]|2[0-3]):([012345][0-9]):([012345][0-9]))/.test(date)
+    return basis.fn.$undefined(date) ? false : /((((19|20)([2468][048]|[13579][26]|0[48])|2000)-02-29|((19|20)[0-9]{2}-(0[4678]|1[02])-(0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}-(0[1359]|11)-(0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}-02-(0[1-9]|1[0-9]|2[0-8])))\s([01][0-9]|2[0-3]):([012345][0-9]):([012345][0-9]))/.test(date)
 }
 
 let trueEmail = Value.query('data.email').as(email => validation.isEmail(email));
-let truePhone = Value.query('data.phone').as(phone => phone ? phoneOnlyFigures(phone).length == 10 : false);
+let truePhone = Value.query('data.phone').as(phone => isPhoneMobile(phone, 10));
 let trueCreatedAt = Value.query('data.created_at').as(createdAt => createdAt ? isDatetime(createdAt) : false);
 
 const node = new Node({
@@ -35,8 +36,8 @@ const node = new Node({
             Value.query(node, 'data.phone'),
             Value.query(node, 'data.created_at'),
             (email, phone, created_at) => {
-                !validation.isEmail(email) && !(phone ? phoneOnlyFigures(phone).length == 10 : false)
-                && !(created_at ? /((((19|20)([2468][048]|[13579][26]|0[48])|2000)-02-29|((19|20)[0-9]{2}-(0[4678]|1[02])-(0[1-9]|[12][0-9]|30)|(19|20)[0-9]{2}-(0[1359]|11)-(0[1-9]|[12][0-9]|3[01])|(19|20)[0-9]{2}-02-(0[1-9]|1[0-9]|2[0-8])))\s([01][0-9]|2[0-3]):([012345][0-9]):([012345][0-9]))/.test(created_at) : false)
+                let invert = basis.bool.invert;
+                return invert(validation.isEmail(email)) || invert(isPhoneMobile(phone, 10)) || invert(isDatetime(created_at))
             }),
     },
     action:{
