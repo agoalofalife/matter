@@ -58,13 +58,13 @@
             </div>
             <div class="field-body">
                 <div class="field is-narrow">
-                    <div class="control">
+                    <div class="control" event-change="changeConfirmed">
                         <label class="radio">
-                            <input type="radio" name="member" checked="{confirmed}">
+                            <input type="radio" name="member" value="true" checked="{confirmed}">
                             Да
                         </label>
                         <label class="radio">
-                            <input type="radio" name="member" checked="{confirmed}">
+                            <input type="radio" name="member" value="false" checked="{notConfirmed}">
                             Нет
                         </label>
                     </div>
@@ -79,8 +79,11 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <input class="input" type="date" name="created_at" placeholder="{created_at}" value="{created_at}">
+                        <input class="input" type="datetime" name="created_at" placeholder="{created_at}" value="{created_at}" event-input="inputCreatedAt">
                     </div>
+                    <p class="help is-danger" b:hide="{trueCreatedAt}">
+                        Дата не верна
+                    </p>
                 </div>
             </div>
         </div>
@@ -92,7 +95,7 @@
             <div class="field-body ">
                 <div class="field is-grouped is-grouped-right">
                     <p class="control">
-                        <button type="submit" class="button is-primary" disabled="{disabled}">Сохранить</button>
+                        <button type="submit" class="button is-primary" disabled="{notSave}">Сохранить</button>
                     </p>
                     <p class="control">
                         <button class="button is-warning" event-click="cancel">Отменить</button>

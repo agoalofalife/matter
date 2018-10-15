@@ -8,7 +8,7 @@ let user = entity.createType('User', {
     id: entity.IntId,
     email: String,
     phone: String,
-    confirmed: String,
+    confirmed: Boolean,
     created_at:String,
     recent_activity:String,
 });
