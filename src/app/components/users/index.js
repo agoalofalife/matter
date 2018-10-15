@@ -39,7 +39,9 @@ let Modal = new ModalConfirmed({
     }
 });
 
-let isShowUserEdit = Value.from(UserEdit, 'targetChanged', 'target').as(target => !!target);
+let isShowUserEdit = Value.from(UserEdit, 'targetChanged', 'target').as(target => {
+    return !!target
+});
 searchedUser.link(null, () => filtered.applyRule());
 
 

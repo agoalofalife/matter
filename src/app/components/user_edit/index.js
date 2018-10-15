@@ -62,9 +62,8 @@ const node = new Node({
             this.update({confirmed:boolValue});
         },
         save:function (e) {
-            e.die();
             this.setDelegate();
-        }
+        },
     }
 });
 
