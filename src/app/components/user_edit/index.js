@@ -6,6 +6,7 @@ const maskPhone = require('app.utils.mask').mobile.RU;
 
 
 let trueEmail = Value.query('data.email').as(email => validation.isEmail(email));
+let truePhone = Value.query('data.phone').as(phone => phone ? phone.replace(/\)/, '').replace(/\(/, '').replace(/\-+/, '').replace(/\-/,'').replace(' ', '').length == 10 : false);
 
 module.exports = new Node({
     className:'user.edit',
@@ -22,6 +23,7 @@ module.exports = new Node({
         created_at:'data:',
         recent_activity:'data:',
         trueEmail:trueEmail,
+        truePhone:truePhone
     },
     action:{
         cancel:function () {
@@ -32,15 +34,10 @@ module.exports = new Node({
         },
         inputPhone: function(e){
             let phone = maskPhone(e.sender.value);
-            this.update({phone:phone})
+            this.update({phone:phone});
             e.sender.value = phone;
         },
         save:function (e) {
-            console.log(this);
-            // for (let field of this.tmpl.form ) {
-            //     console.log(field)
-            // }
-            // console.dir(this.binding);
             e.die();
             this.setDelegate();
         }

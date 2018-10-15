@@ -42,7 +42,11 @@
                         <p class="control is-expanded">
                             <input class="input" name="phone" type="tel"  value="{phone}" event-input="inputPhone">
                         </p>
+
                     </div>
+                    <p class="help is-danger" b:hide="{truePhone}">
+                        Телефон не введен полностью
+                    </p>
                     <!--<p class="help">Do not enter the first zero</p>-->
                 </div>
             </div>
