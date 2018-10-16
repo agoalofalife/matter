@@ -12,7 +12,7 @@ let user = entity.createType('User', {
     created_at:String,
     recent_activity:String,
 });
-console.log(user.extendReader(data => data.recent_activity = data.sign_in_at));;
+user.extendReader(data => data.recent_activity = data.sign_in_at);
 
 user.all.setSyncAction(function () {
     this.setState(STATE.PROCESSING);
