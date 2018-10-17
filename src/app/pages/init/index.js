@@ -7,7 +7,7 @@ var profile = new DataObject({
     login: service.createAction({
         needSignature: false,            // DEPRECATED иначе запрос не будет выполнятся
         method: 'POST',
-        url: '/auth/login',
+        url: 'http://localhost:8000/api/auth/login',
         request: function(login, pwd){
             return {                       // POST /login
                 params: {                    //
@@ -17,16 +17,21 @@ var profile = new DataObject({
             }
         },
         success: function(data){
-            console.log(data, 'success')
-            // предположим, сервер отдал JSON
-            // { "status": "ok", "session": "..." }
-            // service.openSession(data.session);
-
-            // сохраняем ключ сессии в cookie
-            // cookies.set('sessionKey', data.session);
+            service.openSession(data.access_token);
+            localStorage.setItem('access_token', data.access_token)
+            router.navigate('dashboard');
         }
     })
 });
+
+if (localStorage.getItem('access_token')) {
+    service.openSession(localStorage.getItem('access_token'));
+    router.navigate('dashboard');
+} else {
+    router.navigate('');
+}
+
+
 module.exports = new Node({
     template: resource('./template/init.tmpl'),
     action:{
