@@ -2,6 +2,7 @@ const DataObject = require('basis.data').Object;
 const service = require('app.service');
 const router = basis.require('basis.router');
 
+const nameTokenLocalStorage = 'access_token';
 var auth = new DataObject({
     login: service.createAction({
         secure: false,
@@ -17,8 +18,8 @@ var auth = new DataObject({
         },
         success: function(data){
             service.openSession(true);
-            localStorage.setItem('access_token', data.access_token);
-            router.navigate('dashboard');
+            localStorage.setItem(nameTokenLocalStorage, data.access_token);
+            // router.navigate('dashboard');
         }
     }),
     me:service.createAction({
@@ -35,5 +36,14 @@ var auth = new DataObject({
             console.log(data, 'me data')
         }
     }),
+    isAuth:function () {
+        // проверять наличие токена в locale storage
+        // проверить актуальность токена
+        // - через расшифровку смотреть TTL
+        // - через freeze , если устареет, значит заморозить
+        if(basis.fn.$isNotNull(localStorage.getItem(nameTokenLocalStorage))) {
+
+        }
+    }
 });
 module.exports = auth;
