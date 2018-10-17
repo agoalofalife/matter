@@ -5,7 +5,7 @@ const service = require('app.service');
 
 var profile = new DataObject({
     login: service.createAction({
-        needSignature: false,
+        secure: false,
         method: 'POST',
         url: 'auth/login',
         request: function(login, pwd){
@@ -17,7 +17,7 @@ var profile = new DataObject({
             }
         },
         success: function(data){
-            service.openSession(data.access_token);
+            service.openSession(true);
             localStorage.setItem('access_token', data.access_token)
             router.navigate('dashboard');
         }
@@ -25,7 +25,7 @@ var profile = new DataObject({
 });
 
 if (localStorage.getItem('access_token')) {
-    service.openSession(localStorage.getItem('access_token'));
+    service.openSession(true);
     router.navigate('dashboard');
 } else {
     router.navigate('');

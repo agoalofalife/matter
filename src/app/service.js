@@ -3,7 +3,7 @@ const Transport = require('basis.net.ajax').Transport;
 const settings = require('./settings.json');
 
 var defaultService = new Service({
-  isSecure: true,
+  secure: true,
   transportClass: {
       init: function(){
           this.url = settings.host + '/api/' + this.url;
@@ -12,6 +12,9 @@ var defaultService = new Service({
       requestHeaders: {
           Accept: 'application/json'
       }
+  },
+   isSessionExpiredError: function(request) {
+        return request.xhr.status == 401;
   }
 });
 
