@@ -6,7 +6,7 @@ module.exports = new Node({
     template: resource('./template/init.tmpl'),
     action:{
         signIn:function (e) {
-            router.navigate('dashboard')
+            // router.navigate('dashboard')
         },
         updateEmail : function (e) {
             console.log(e.sender.value);

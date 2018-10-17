@@ -1,6 +1,7 @@
 var Service = require('basis.net.service').Service;
 
 var defaultService = new Service({
+  isSecure: true,
   transportClass: basis.net.ajax.Transport.subclass({
     init: function(){
       this.url = '/api/' + this.controller;
