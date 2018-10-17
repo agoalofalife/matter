@@ -3,6 +3,7 @@ const Dataset = require('basis.data').Dataset;
 const DataObject = require('basis.data').Object;
 const router = basis.require('basis.router');
 
+let test = require('app.auth');
 module.exports = new Node({
     className:'navbar',
     data:{
@@ -14,8 +15,9 @@ module.exports = new Node({
     template: resource('./templates/navbar.tmpl'),
     action:{
         signOut: function () {
-            localStorage.removeItem("access_token");
-            router.navigate('');
+            test.me();
+            // localStorage.removeItem("access_token");
+            // router.navigate('');
         }
     },
     childClass: {

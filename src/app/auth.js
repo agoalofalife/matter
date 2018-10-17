@@ -1,5 +1,6 @@
 const DataObject = require('basis.data').Object;
 const service = require('app.service');
+const router = basis.require('basis.router');
 
 var auth = new DataObject({
     login: service.createAction({
@@ -20,10 +21,19 @@ var auth = new DataObject({
             router.navigate('dashboard');
         }
     }),
-    isAuth:function () {
-        
-    }
+    me:service.createAction({
+        method: 'POST',
+        url: 'auth/me',
+        request: function(token){
+            return {
+                requestHeaders: {
+                    Authorization: 'Bearer ' + token,
+                }
+            }
+        },
+        success: function(data){
+            console.log(data, 'me data')
+        }
+    }),
 });
-
-
 module.exports = auth;
