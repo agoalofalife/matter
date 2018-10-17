@@ -5,7 +5,7 @@ const service = require('app.service');
 
 var profile = new DataObject({
     login: service.createAction({
-        needSignature: false,            // DEPRECATED иначе запрос не будет выполнятся
+        needSignature: false,
         method: 'POST',
         url: 'http://localhost:8000/api/auth/login',
         request: function(login, pwd){

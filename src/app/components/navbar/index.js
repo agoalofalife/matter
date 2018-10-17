@@ -1,6 +1,7 @@
 const Node = require('basis.ui').Node;
 const Dataset = require('basis.data').Dataset;
 const DataObject = require('basis.data').Object;
+const router = basis.require('basis.router');
 
 module.exports = new Node({
     className:'navbar',
@@ -11,6 +12,12 @@ module.exports = new Node({
         name:'data:'
     },
     template: resource('./templates/navbar.tmpl'),
+    action:{
+        signOut: function () {
+            localStorage.removeItem("access_token");
+            router.navigate('');
+        }
+    },
     childClass: {
         template: resource('./templates/navbar-item.tmpl'),
         binding: {
