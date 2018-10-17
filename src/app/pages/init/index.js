@@ -7,6 +7,12 @@ module.exports = new Node({
     action:{
         signIn:function (e) {
             router.navigate('dashboard')
+        },
+        updateEmail : function (e) {
+            console.log(e.sender.value);
+        },
+        updatePassword:function (e) {
+            console.log(e.sender.value);
         }
     }
 });
