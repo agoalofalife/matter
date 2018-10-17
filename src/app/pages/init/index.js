@@ -7,7 +7,7 @@ var profile = new DataObject({
     login: service.createAction({
         needSignature: false,
         method: 'POST',
-        url: 'http://localhost:8000/api/auth/login',
+        url: 'auth/login',
         request: function(login, pwd){
             return {                       // POST /login
                 params: {                    //

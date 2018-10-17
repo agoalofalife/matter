@@ -1,14 +1,15 @@
 var Service = require('basis.net.service').Service;
+const Transport = require('basis.net.ajax').Transport;
+const settings = require('./settings.json');
 
 var defaultService = new Service({
   isSecure: true,
   transportClass: {
-      // init: function(){
-          // console.log(this)
-          // this.url = '/api/' + this.controller;
-          // basis.net.ajax.Transport.prototype.init.call(this);
-      // },
-      requestHeaders: {   // добавляем заголовок по умолчанию
+      init: function(){
+          this.url = settings.host + '/api/' + this.url;
+          Transport.prototype.init.call(this);
+      },
+      requestHeaders: {
           Accept: 'application/json'
       }
   }
