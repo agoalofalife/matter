@@ -8,10 +8,10 @@ var auth = new DataObject({
         method: 'POST',
         url: 'auth/login',
         request: function(login, pwd){
-            return {                       // POST /login
-                params: {                    //
-                    email: login,              // login=[login]&password=[pwd]
-                    password: pwd              //
+            return {
+                params: {
+                    email: login,
+                    password: pwd
                 }
             }
         },
