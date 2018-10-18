@@ -4,6 +4,7 @@ const Value = require('basis.data').Value;
 const STATE = basis.require('basis.data').STATE;
 let pages = require('./app/pages/index');
 let auth = require('app.components.auth.index');
+let Message = require('app.components.message.index');
 const authObject = require('app.auth');
 
 let page = router
@@ -27,10 +28,12 @@ module.exports = require('basis.app').create({
         binding: {
             init: 'satellite:',
             auth: 'satellite:',
+            message: 'satellite:',
         },
         satellite: {
             init: page,
             auth: auth,
+            message: new Message({title:'Информация', text:'Просто текст'}),
         },
     });
   }

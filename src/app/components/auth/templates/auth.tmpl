@@ -25,6 +25,9 @@
                                     <div class="control">
                                         <input class="input is-large" type="email" placeholder="Ваш Email" event-input="updateEmail">
                                     </div>
+                                    <p class="help is-danger" b:hide="{trueEmail}">
+                                        Email не валиден
+                                    </p>
                                 </div>
 
                                 <div class="field">
@@ -38,7 +41,7 @@
                                 <!--Remember me-->
                                 <!--</label>-->
                                 <!--</div>-->
-                                <button class="button is-block is-info is-large is-fullwidth" event-click="signIn">Войти</button>
+                                <button class="button is-block is-info is-large is-fullwidth" event-click="signIn" disabled="{notSave}">Войти</button>
                             </form>
                         </div>
                         <!--<p class="has-text-grey">-->
