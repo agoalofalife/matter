@@ -25,7 +25,7 @@ module.exports = require('basis.app').create({
 
   init: function(){
     return new Node({
-     disabled:authState.as(state => state != STATE.READY),
+      disabled:authState.as(state => state != STATE.READY),
       // active: authState.as(state => state == STATE.READY),
       template: resource('./app/template/layout.tmpl'),
         binding: {
