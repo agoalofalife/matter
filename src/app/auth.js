@@ -1,15 +1,14 @@
 const DataObject = require('basis.data').Object;
 const service = require('app.service');
-const router = basis.require('basis.router');
 const STATE = basis.require('basis.data').STATE;
 
 const nameTokenLocalStorage = 'access_token';
 var auth = new DataObject({
-    // emit_changeLocalStorage: event.create('changeLocalStorage'),
     init() {
         DataObject.prototype.init.call(this);
         window.addEventListener('storage', function(e) {
-            console.log(e)
+            console.log(e, '?')
+            // при удалении из storage token
             if (e.key === nameTokenLocalStorage && basis.fn.$isNull(e.newValue)) {
                 this.setState(STATE.UNDEFINED)
             }
@@ -24,8 +23,9 @@ var auth = new DataObject({
                 this.setState(STATE.READY)
             },
         }, this);
+        this.isAuth()
     },
-    // state: STATE.UNDEFINED,
+    state: STATE.UNDEFINED,
     login: service.createAction({
         secure: false,
         method: 'POST',
@@ -46,16 +46,16 @@ var auth = new DataObject({
     me:service.createAction({
         method: 'POST',
         url: 'auth/me',
-        request: function(token){
+        request: function(){
             return {
                 requestHeaders: {
-                    Authorization: 'Bearer ' + token,
+                    Authorization: 'Bearer ' + this.getToken(),
                 }
             }
         },
         success: function(data){
             console.log(data, 'me data')
-        }
+        },
     }),
     isAuth:function () {
         // проверять наличие токена в locale storage
@@ -63,10 +63,20 @@ var auth = new DataObject({
         // - через расшифровку смотреть TTL
         // - через freeze , если устареет, значит заморозить
         // если нет токена в storage и отстутствует session key, то состояние undefined
-        if(basis.fn.$null(localStorage.getItem(nameTokenLocalStorage)) || basis.fn.$defined(service.sessionKey) || basis.fn.$null(service.sessionKey)) {
+    // || basis.fn.$undefined(service.sessionKey) || basis.fn.$isNull(service.sessionKey)
+        if(basis.fn.$isNull(this.getToken())) {
             this.setState(STATE.UNDEFINED);
             return false;
         }
+        this.setState(STATE.READY);
+        return true;
+    },
+    getToken() {
+        return localStorage.getItem(nameTokenLocalStorage);
+    },
+    out(){
+        localStorage.removeItem(nameTokenLocalStorage);
+        this.setState(STATE.UNDEFINED);
     }
 });
 
