@@ -1,10 +1,17 @@
 const Node = require('basis.ui').Node;
 const resolveValue = require('basis.data').resolveValue;
+const anim = require('basis.animation').FX.CSS;
+const Thread = require('basis.animation').Thread;
+
 
 module.exports = Node.subclass({
     init:function () {
         Node.prototype.init.call(this);
         this.setActive(this.active);
+
+        this.amin = new Thread({
+            duration:this.duration
+        });
     },
     /**
      * Modal active flag.
@@ -34,6 +41,8 @@ module.exports = Node.subclass({
      */
     makeActive:function(){
         this.setActive(true);
+        anim.FadeOut(this.amin, this.element);
+        this.amin.start();
     },
     className:'message',
     template: resource('./templates/message.tmpl'),
