@@ -7,7 +7,6 @@ var auth = new DataObject({
     init() {
         DataObject.prototype.init.call(this);
         window.addEventListener('storage', function(e) {
-            console.log(e, '?')
             // при удалении из storage token
             if (e.key === nameTokenLocalStorage && basis.fn.$isNull(e.newValue)) {
                 this.setState(STATE.UNDEFINED)
