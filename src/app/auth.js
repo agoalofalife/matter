@@ -5,7 +5,27 @@ const STATE = basis.require('basis.data').STATE;
 
 const nameTokenLocalStorage = 'access_token';
 var auth = new DataObject({
-    state: STATE.UNDEFINED,
+    // emit_changeLocalStorage: event.create('changeLocalStorage'),
+    init() {
+        DataObject.prototype.init.call(this);
+        window.addEventListener('storage', function(e) {
+            console.log(e)
+            if (e.key === nameTokenLocalStorage && basis.fn.$isNull(e.newValue)) {
+                this.setState(STATE.UNDEFINED)
+            }
+        }.bind(this));
+        service.addHandler({
+            sessionFreeze:function () {
+                basis.dev.info('Session freeze');
+                this.setState(STATE.UNDEFINED)
+            },
+            sessionOpen: function(){
+                basis.dev.info('Session open');
+                this.setState(STATE.READY)
+            },
+        }, this);
+    },
+    // state: STATE.UNDEFINED,
     login: service.createAction({
         secure: false,
         method: 'POST',
@@ -21,7 +41,6 @@ var auth = new DataObject({
         success: function(data){
             service.openSession(true);
             localStorage.setItem(nameTokenLocalStorage, data.access_token);
-            this.setState(STATE.READY)
         }
     }),
     me:service.createAction({
@@ -44,9 +63,12 @@ var auth = new DataObject({
         // - через расшифровку смотреть TTL
         // - через freeze , если устареет, значит заморозить
         // если нет токена в storage и отстутствует session key, то состояние undefined
-        if(basis.fn.$isNotNull(localStorage.getItem(nameTokenLocalStorage)) || basis.fn.$defined(service.sessionKey) || basis.fn.$null(service.sessionKey)) {
+        if(basis.fn.$null(localStorage.getItem(nameTokenLocalStorage)) || basis.fn.$defined(service.sessionKey) || basis.fn.$null(service.sessionKey)) {
             this.setState(STATE.UNDEFINED);
+            return false;
         }
     }
 });
+
+
 module.exports = auth;

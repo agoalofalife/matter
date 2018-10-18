@@ -12,17 +12,19 @@ let page = router
         return pages[page] || pages['dashboard'];
     });
 
-let authState = Value.state(auth);
+
+// authState.as(state => console.log(state))
 module.exports = require('basis.app').create({
   title: 'Административная панель',
 
   init: function(){
     return new Node({
+      // active: authState.as(state => state == STATE.READY),
       template: resource('./app/template/layout.tmpl'),
         binding: {
             init: 'satellite:',
             auth: 'satellite:',
-            active: authState.as(state => state == STATE.READY),
+            // isAuth: authState.as(state => state == STATE.READY),
         },
         satellite: {
             init: page,

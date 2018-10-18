@@ -5,7 +5,7 @@ const settings = require('./settings.json');
 var defaultService = new Service({
   secure: true,
   isSessionExpiredError: function(request) {
-        console.log('isSessionExpiredError')
+      basis.dev.info('isSessionExpiredError');
         return request.xhr.status == 401;
     },
   transportClass: {
@@ -17,15 +17,6 @@ var defaultService = new Service({
           Accept: 'application/json'
       }
   },
-});
-
-defaultService.addHandler({
-    sessionOpen: function(){
-        console.log('sessionOpen: event context is', this);
-    },
-    sessionFreeze:function () {
-        console.log('Session freeze')
-    }
 });
 
 
