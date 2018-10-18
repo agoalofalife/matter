@@ -21,7 +21,7 @@ var defaultService = new Service({
 
 defaultService.addHandler({
     sessionOpen: function(){
-        console.log('sessionOpen: event context is', this.name);
+        console.log('sessionOpen: event context is', this);
     },
     sessionFreeze:function () {
         console.log('Session freeze')

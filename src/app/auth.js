@@ -1,9 +1,11 @@
 const DataObject = require('basis.data').Object;
 const service = require('app.service');
 const router = basis.require('basis.router');
+const STATE = basis.require('basis.data').STATE;
 
 const nameTokenLocalStorage = 'access_token';
 var auth = new DataObject({
+    state: STATE.UNDEFINED,
     login: service.createAction({
         secure: false,
         method: 'POST',
@@ -19,7 +21,7 @@ var auth = new DataObject({
         success: function(data){
             service.openSession(true);
             localStorage.setItem(nameTokenLocalStorage, data.access_token);
-            // router.navigate('dashboard');
+            this.setState(STATE.READY)
         }
     }),
     me:service.createAction({
@@ -41,8 +43,9 @@ var auth = new DataObject({
         // проверить актуальность токена
         // - через расшифровку смотреть TTL
         // - через freeze , если устареет, значит заморозить
-        if(basis.fn.$isNotNull(localStorage.getItem(nameTokenLocalStorage))) {
-
+        // если нет токена в storage и отстутствует session key, то состояние undefined
+        if(basis.fn.$isNotNull(localStorage.getItem(nameTokenLocalStorage)) || basis.fn.$defined(service.sessionKey) || basis.fn.$null(service.sessionKey)) {
+            this.setState(STATE.UNDEFINED);
         }
     }
 });
