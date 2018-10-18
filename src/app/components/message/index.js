@@ -41,5 +41,6 @@ module.exports = Node.subclass({
         active:'active',
         title:'title',
         text:'text',
+        type:'type'
     },
 });

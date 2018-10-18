@@ -17,6 +17,8 @@ let page = router
 
 let authState = Value.state(authObject);
 
+let message = new Message({title:'Информация', text:'Просто текст', type:'is-primary'});
+message.makeActive();
 module.exports = require('basis.app').create({
   title: 'Административная панель',
 
@@ -33,7 +35,7 @@ module.exports = require('basis.app').create({
         satellite: {
             init: page,
             auth: auth,
-            message: new Message({title:'Информация', text:'Просто текст'}),
+            message: message,
         },
     });
   }

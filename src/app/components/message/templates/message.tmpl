@@ -1,7 +1,8 @@
 <b:style src="./message.css"/>
 <b:define from="active" type="bool"/>
+<b:define from="type" type="string"/>
 
-<article class="message is-small column is-3" b:show="{active}">
+<article class="message {type} is-small column is-3" b:show="{active}">
     <div class="message-header">
         <p>{title}</p>
         <button class="delete is-small" aria-label="delete"></button>
