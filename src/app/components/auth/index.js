@@ -9,11 +9,6 @@ let Message = require('app.components.message.index');
 let authState = Value.state(auth);
 let trueEmail = Value.query('data.email').as(email => validation.isEmail(email));
 
-
-// Message.update({title:'Информация', text:'Просто текст', type:'is-success', duration:3000});
-// console.log(Message, 'message from auth components')
-// Message.makeActive();
-
 module.exports = new Node({
     template: resource('./templates/auth.tmpl'),
     binding:{
