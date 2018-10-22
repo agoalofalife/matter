@@ -27,10 +27,14 @@ module.exports = new Node({
             auth.login(this.data.email, this.data.password).then(() => {
                 Message.update({title:'Информация', text:'Вы успешно прошли аутентификацию!', type:'is-success', duration:3000, active:true});
             }).catch(err => {
-              if (err.response.error = "Unauthorized") {
+               if (err.response === '') {
+                   Message.update({title:'Ошибка', text:'Ошибка на сервере!', type:'is-danger', duration:3000, active:true});
+               }
+              else if (err.response.error = "Unauthorized") {
                   Message.update({title:'Ошибка', text:'Неверный логин или пароль!', type:'is-danger', duration:3000, active:true});
-              };
+              }
             })
+             // agoalofalife@gmail.com
         },
         updateEmail : function (e) {
             this.update({email:e.sender.value});
